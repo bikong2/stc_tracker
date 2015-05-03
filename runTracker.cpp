@@ -6,10 +6,10 @@
 #include <cstdio>
 #include "STCTracker.h"
 /*****************************************************************************/
-//在命令行
-//1)输入 -b init.txt -v david.mpg则选择david视频并且初始位置固定
-//2)输入 -v david.mpg则选择david视频并且初始位置需要手动设置
-//3)不输入任何命令则打开摄像头，手动设定初始位置
+//command line
+//1)input -b init.txt -v david.mpg, choose david video and give initial position
+//2)input -v david.mpg, choose david but you should set initial position
+//3)no any input, open camera and you should set initial position
 /*****************************************************************************/
 //-v david.mpg -b david_init.txt
 #define STC 1
@@ -140,7 +140,7 @@ int main(int argc, char * argv[])
 	//Register mouse callback to draw the bounding box
 	cvNamedWindow("Tracker", CV_WINDOW_AUTOSIZE);
 	cvSetMouseCallback("Tracker", mouseHandler, NULL );
-	//保存图像的路径
+	//save img path
 	string imgFormat=".\\imgs\\img%05d.png";
 	char image_name[256];
 
@@ -150,14 +150,14 @@ int main(int argc, char * argv[])
 		capture >> frame;
 		frameCount++;
 		frame.copyTo(first);
-		//显示帧数
+		//show fame num
 		stringstream buf;
 		buf << frameCount;
 		string num = buf.str();
 		putText(frame, num, Point(15, 30), FONT_HERSHEY_SIMPLEX, 1, Scalar(100, 0, 255), 3);
-		//显示
+		//show
 		imshow("Tracker", frame);
-		//保存
+		//save
 		sprintf(image_name, imgFormat.c_str(), frameCount);
 		imwrite(image_name,frame);
 	}
@@ -222,7 +222,7 @@ int main(int argc, char * argv[])
 
 		// show the result
 		
-		//显示当前帧
+		//show frame
 		stringstream buf;
 		buf << frameCount;
 		string num = buf.str();
@@ -241,7 +241,7 @@ int main(int argc, char * argv[])
 			break;
 	}
 
-	//等待输入
+	//wait input
 	//cin.get();
 	return 0;
 }

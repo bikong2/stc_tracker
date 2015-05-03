@@ -145,7 +145,7 @@ void STCTracker::init(const Mat frame, const Rect box,Rect &boxRegion)
 	cxtRegion.x = center.x - cxtRegion.width * 0.5;
 	cxtRegion.y = center.y - cxtRegion.height * 0.5;	
 	cxtRegion &= Rect(0, 0, frame.cols, frame.rows);
-	boxRegion=cxtRegion;//输出box区域
+	boxRegion=cxtRegion;//output box region
 
 	// the prior, posterior and conditional probability and spatio-temporal context model
 	cxtPriorPro = Mat::zeros(cxtRegion.height, cxtRegion.width, CV_64FC1);
@@ -161,7 +161,6 @@ void STCTracker::init(const Mat frame, const Rect box,Rect &boxRegion)
 	cvtColor(frame, gray, CV_RGB2GRAY);
 
 	// normalized by subtracting the average intensity of that region
-	//为消去光照的影响，对图像去均值化
 	Scalar average = mean(gray(cxtRegion));
 	Mat context;
 	gray(cxtRegion).convertTo(context, CV_64FC1, 1.0, - average[0]);
@@ -238,7 +237,7 @@ void STCTracker::tracking(const Mat frame, Rect &trackBox,Rect &boxRegion,int Fr
 	trackBox.x = center.x - 0.5 * trackBox.width;
 	trackBox.y = center.y - 0.5 * trackBox.height;
 	trackBox &= Rect(0, 0, frame.cols, frame.rows);
-	//边界处理
+	//boundary
 	cxtRegion.x = center.x - cxtRegion.width * 0.5;
 	if (cxtRegion.x<0)
 	{
